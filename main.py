@@ -31,7 +31,7 @@ JardinDeden = FastAPI(
     openapi_tags=tags_metadata # tagsmetadat est defnit au dessus
 ) 
 
-#API metadata
+#API metadat
 import psycopg2
 from psycopg2.extras import RealDictCursor
 
