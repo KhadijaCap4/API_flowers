@@ -1,7 +1,5 @@
 from sqlalchemy import TIMESTAMP, Boolean, Column, ForeignKey, Integer, String, Numeric
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import create_engine
-
 
 # Class de base pour créer les models
 Base= declarative_base()
