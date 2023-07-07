@@ -11,7 +11,7 @@ class Product_POST_Body (BaseModel):
 class Product_PATCH_Body (BaseModel):
     newFeatured: bool
 
-class Product_GETID_Response(BaseModel): # format de sortie (response)
+class Product_GETID_Response(BaseModel): # format de sortie (response)TY
     id: int
     name: str
     price: str
