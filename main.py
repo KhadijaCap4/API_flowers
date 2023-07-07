@@ -4,7 +4,6 @@ from fastapi import FastAPI
 from documentation.description import api_description
 from documentation.tags import tags_metadata
 
-
 # Database 
 from classes.database import database_engine 
 import classes.models_orm # Import des ORM
