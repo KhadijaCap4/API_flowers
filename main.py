@@ -11,7 +11,7 @@ import classes.models_orm # Import des ORM
 #Import des routers
 import routers.router_products, routers.router_customers, routers.router_transactions, routers.router_auth
 
-# Créer les tables si elles ne sont pas présente dans la DB
+# Créer les tables si elles ne sont pas présente dans la DB.
 classes.models_orm.Base.metadata.create_all(bind=database_engine)
 
 JardinDeden = FastAPI(
