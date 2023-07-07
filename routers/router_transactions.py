@@ -29,9 +29,9 @@ async def list_transactions(
         return all_transactions # data format à ajuster cela besoin
 
 # Exercice : get all transactions
-# DTO pour récupérer le product_id car le customer_id est déjà dans le JWToken
+# DTO pour récupérer le bouquet_id car le customer_id est déjà dans le JWToken
 class transaction_post(BaseModel):
-    product_id:int
+    bouquet_id:int
 
 @router.post('', status_code=status.HTTP_201_CREATED)
 async def create_transaction(
@@ -40,7 +40,7 @@ async def create_transaction(
     cursor: Session = Depends(get_cursor)
     ):
     decoded_customer_id = utilities.decode_token(token)
-    new_transaction= models_orm.Transactions(customer_id=decoded_customer_id, product_id=payload.product_id)
+    new_transaction= models_orm.Transactions(customer_id=decoded_customer_id, bouquet_id=payload.bouquet_id)
     try : 
         cursor.add(new_transaction)
         cursor.commit()
@@ -49,5 +49,5 @@ async def create_transaction(
     except IntegrityError:
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail='the given product does not exist'
+            detail='the given bouquet does not exist'
         )

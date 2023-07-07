@@ -8,4 +8,16 @@ tags_metadata = [
             "url": "https://fastapi.tiangolo.com/",
         },
     },
+    {
+        "name": "Bouquets",
+        "description": "Create and list bouquets of our API",
+    },
+    {
+        "name": "Customers",
+        "description": "Create and list customers of our API",
+    },
+    {
+        "name": "Transactions",
+        "description": "Create and list customer's transactions",
+    },
 ]

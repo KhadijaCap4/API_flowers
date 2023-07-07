@@ -9,7 +9,7 @@ from classes.database import database_engine
 import classes.models_orm # Import des ORM
 
 #Import des routers
-import routers.router_products, routers.router_customers, routers.router_transactions, routers.router_auth
+import routers.router_bouquets, routers.router_customers, routers.router_transactions, routers.router_auth
 
 # Créer les tables si elles ne sont pas présente dans la DB.
 classes.models_orm.Base.metadata.create_all(bind=database_engine)
@@ -21,11 +21,10 @@ JardinDeden = FastAPI(
 ) 
 
 # Ajouter les routers dédiés
-JardinDeden.include_router(routers.router_products.router)
 JardinDeden.include_router(routers.router_customers.router)
 JardinDeden.include_router(routers.router_transactions.router)
 JardinDeden.include_router(routers.router_auth.router)
-
+JardinDeden.include_router(routers.router_bouquets.router)
 # /*
 # #API metadat
 # import psycopg2
