@@ -33,7 +33,7 @@ async def create_customer(
             detail="User already exists" 
         )
     
-@router.get('', response_model=list[schemas_dto.Customer_response])
+@router.get('')
 async def get_all_customers(cursor: Session = Depends(database.get_cursor)):
     all_customers = cursor.query(models_orm.Customers).all()
     return all_customers
