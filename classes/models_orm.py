@@ -11,7 +11,7 @@ class Products(Base):
     name = Column(String, nullable=False)
     price = Column(Numeric, nullable=False)
     featured = Column(Boolean, nullable=True, server_default='FALSE') # server_default permet de donner une valeur par default
-created_at= Column(TIMESTAMP(timezone=True), nullable=False, server_default='now()')  #now() représente la date/time actuelle
+    created_at= Column(TIMESTAMP(timezone=True), nullable=False, server_default='now()')  #now() représente la date/time actuelle
 
 class Customers(Base):
     __tablename__="customer"
