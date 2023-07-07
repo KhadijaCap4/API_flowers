@@ -1,6 +1,7 @@
 from fastapi import APIRouter, HTTPException, status, Depends
 from classes import schemas_dto, database, models_orm
 from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
 import utilities
 
 # Formulaire de lancement du OAuth /auth

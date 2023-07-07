@@ -22,10 +22,10 @@ JardinDeden = FastAPI(
 ) 
 
 # Ajouter les routers dédiés
-app.include_router(routers.router_products.router)
-app.include_router(routers.router_customers.router)
-app.include_router(routers.router_transactions.router)
-app.include_router(routers.router_auth.router)
+JardinDeden.include_router(routers.router_products.router)
+JardinDeden.include_router(routers.router_customers.router)
+JardinDeden.include_router(routers.router_transactions.router)
+JardinDeden.include_router(routers.router_auth.router)
 
 # /*
 # #API metadat

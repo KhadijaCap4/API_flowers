@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from sqlalchemy import create_engine
 from sqlalchemy.exc import IntegrityError
 from classes import models_orm, schemas_dto, database
 import utilities
