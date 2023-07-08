@@ -1,4 +1,4 @@
-# Liste des tags utilises dans la doc
+# Liste des tags utilisés dans la doc
 tags_metadata = [
     {
         "name": "Bouquets",

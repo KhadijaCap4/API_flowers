@@ -2,8 +2,8 @@ from datetime import datetime
 from pydantic import BaseModel
 from typing import List
 
-# DTO : Data Transfert Object ou Schema
-# Représente la structure de la données (data type) en entrée ou en sortie de notre API.
+# DTO: Data Transfer Object or Schema
+# Represents the structure of the data (data type) as input or output of our API.
 
 class Bouquet_POST_Body (BaseModel):
     bouquetName: str
@@ -23,8 +23,11 @@ class Bouquet_GETID_Response(BaseModel): # format de sortie (response)TY
     principal_color: List[str]
     composition: List[str]
     featured: bool
-    class Config: # Lors des réponses, nous avons souvant à utiliser les données sortie de notre database. La Config ORM nous permet de "choisir" les columnes à montrer. 
+
+    class Config: 
         orm_mode= True
+        # When returning responses, we often use data from our database.
+        # The `orm_mode` configuration allows us to choose which columns to include in the response.
 
 class Customer_POST_Body (BaseModel):
     customerEmail:str
@@ -34,6 +37,7 @@ class Customer_response (BaseModel):
     id: int
     email:str
     create_at: datetime
-    # not sending the password
-    class Config: # Importante pour la traduction ORM -> DTO
+    # We do not include the password when sending the response.
+
+    class Config: # Important for the ORM to DTO translation.
         orm_mode= True      

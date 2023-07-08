@@ -10,7 +10,7 @@ router = APIRouter(
     tags=['Bouquets']
 )
 
-# Read
+# Retrieve a list of bouquets
 @router.get('')
 async def get_bouquets(
     cursor: Session= Depends(get_cursor), 
@@ -24,7 +24,7 @@ async def get_bouquets(
         "skip":offset
     }
 
-# Read by id
+# Retrieve a bouquet by ID
 @router.get('/{bouquet_id}', response_model=schemas_dto.Bouquet_GETID_Response)
 async def get_bouquet(bouquet_id:int, cursor:Session= Depends(get_cursor)):
     corresponding_bouquet = cursor.query(models_orm.Bouquets).filter(models_orm.Bouquets.id == bouquet_id).first()
@@ -36,7 +36,7 @@ async def get_bouquet(bouquet_id:int, cursor:Session= Depends(get_cursor)):
             detail=f"No corresponding bouquet found with id : {bouquet_id}"
         )
 
-# CREATE / POST 
+# Create a new bouquet
 @router.post('', status_code=status.HTTP_201_CREATED)
 async def create_bouquet(payload: schemas_dto.Bouquet_POST_Body, cursor:Session= Depends(get_cursor)):
     new_bouquet = models_orm.Bouquets(name=payload.bouquetName, description=payload.bouquetDescription, composition=payload.bouquetComposition, principal_color=payload.bouquetPrincipal_color, price=payload.bouquetPrice) # build the insert
@@ -45,7 +45,7 @@ async def create_bouquet(payload: schemas_dto.Bouquet_POST_Body, cursor:Session=
     cursor.refresh(new_bouquet)
     return {"message" : f"New bouquet {new_bouquet.name} added sucessfully with id: {new_bouquet.id}"} 
 
-# DELETE ? 
+# Delete a bouquet
 @router.delete('/{bouquet_id}', status_code=status.HTTP_204_NO_CONTENT)
 async def delete_bouquet(bouquet_id:int, cursor:Session=Depends(get_cursor)):
     # Recherche sur le bouquet existe ? 
@@ -61,7 +61,7 @@ async def delete_bouquet(bouquet_id:int, cursor:Session=Depends(get_cursor)):
             detail=f'Ne corresponding bouquet with id: {bouquet_id}'
         )
 
-# Update
+# Update a bouquet
 @router.patch('/{bouquet_id}')
 async def update_bouquet(bouquet_id: int, payload:schemas_dto.Bouquet_PATCH_Body, cursor:Session=Depends(get_cursor)):
     # trouver le bouquet correspodant

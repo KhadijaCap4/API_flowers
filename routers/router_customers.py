@@ -10,35 +10,37 @@ router = APIRouter(
     tags=['Customers']
 )
 
+# Create a new customer
 @router.post('', response_model=schemas_dto.Customer_response, status_code= status.HTTP_201_CREATED)
 async def create_customer(
     payload: schemas_dto.Customer_POST_Body, 
     cursor: Session = Depends(database.get_cursor),
     ):
     try: 
-        # 1. On ne stock pas le mot de pass "en claire" mais le hash
-        hashed_password = utilities.hash_password(payload.customerPassword) 
-        # 2. Creation d'un object ORM pour être injecté dans la DB 
-        new_customer= models_orm.Customers(password=hashed_password, email= payload.customerEmail)
-        # 3. Send query
-        cursor.add(new_customer) 
+        # 1. Hash the password instead of storing it in plain text
+        hashed_password = utilities.hash_password(payload.customerPassword)
+        # 2. Create an ORM object to be inserted into the database
+        new_customer = models_orm.Customers(password=hashed_password, email=payload.customerEmail)
+        # 3. Add the new customer to the session
+        cursor.add(new_customer)
         # 4. Save the staged changes
-        cursor.commit() 
-        # Pour obtenir l'identifiant
-        cursor.refresh(new_customer) 
-        return new_customer # not a python dict -> donc il faut un mapping
-    except IntegrityError: # Se déclanche si un utilisateur possède déjà la même email (unique=True)
+        cursor.commit()
+        # Refresh the customer object to obtain its ID
+        cursor.refresh(new_customer)
+        return new_customer
+    except IntegrityError: # Triggered if a user with the same email already exists (unique=True)
         raise HTTPException(
             status_code=status.HTTP_409_CONFLICT,
-            detail="User already exists" 
+            detail="User already exists"
         )
     
+# Retrieve a list of customers
 @router.get('')
 async def get_all_customers(cursor: Session = Depends(database.get_cursor)):
     all_customers = cursor.query(models_orm.Customers).all()
     return all_customers
 
-# Exercice not an actual use case
+# Retrieve a customer by ID
 @router.get('/{customer_id}', response_model=schemas_dto.Customer_response)
 async def get_user_by_id(customer_id:int, cursor: Session = Depends(database.get_cursor)):
     corresponding_customer = cursor.query(models_orm.Customers).filter(models_orm.Customers.id == customer_id).first()
