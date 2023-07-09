@@ -23,6 +23,7 @@ class Customers(Base):
     email = Column(String, nullable=False, unique=True)
     password = Column(String, nullable=False)
     create_at= Column(TIMESTAMP(timezone=True), nullable=False, server_default='now()')  
+    isAdmin = Column(Boolean, nullable=False, server_default='FALSE')
 
 class Transactions(Base):
     __tablename__="transaction"

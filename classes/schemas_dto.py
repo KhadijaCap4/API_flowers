@@ -32,6 +32,7 @@ class Bouquet_GETID_Response(BaseModel): # format de sortie (response)TY
 class Customer_POST_Body (BaseModel):
     customerEmail:str
     customerPassword: str
+    customerStatus: bool
 
 class Customer_response (BaseModel): 
     id: int

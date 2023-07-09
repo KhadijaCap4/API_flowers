@@ -20,7 +20,7 @@ async def create_customer(
         # 1. Hash the password instead of storing it in plain text
         hashed_password = utilities.hash_password(payload.customerPassword)
         # 2. Create an ORM object to be inserted into the database
-        new_customer = models_orm.Customers(password=hashed_password, email=payload.customerEmail)
+        new_customer = models_orm.Customers(password=hashed_password, email=payload.customerEmail, isAdmin=payload.customerStatus)
         # 3. Add the new customer to the session
         cursor.add(new_customer)
         # 4. Save the staged changes
