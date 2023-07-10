@@ -5,7 +5,6 @@ from classes.database import get_cursor
 from classes import models_orm, schemas_dto
 import utilities
 from pydantic import BaseModel
-from typing import Annotated
 from fastapi.security import OAuth2PasswordBearer
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth")
 
