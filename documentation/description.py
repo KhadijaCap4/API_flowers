@@ -12,8 +12,8 @@ You will be able to :
 * Create new bouquets.
 * Get bouquets list.
 * Get a bouquet  filter by his ID.
-* Delete a bouquet by specifying his id.
-* Modify some information for a bouquet.
+* Delete a bouquet by specifying his id if you are an admin.
+* Modify some information for a bouquet .
 
 ## Tansactions
 
@@ -29,4 +29,5 @@ You will be able to :
 * Create new customers.
 * Get customers list.
 * Get a customer filter by his ID.
+* Update a customer role if you are an admin
 """
