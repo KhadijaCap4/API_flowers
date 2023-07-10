@@ -32,12 +32,16 @@ class Bouquet_GETID_Response(BaseModel): # format de sortie (response)TY
 class Customer_POST_Body (BaseModel):
     customerEmail:str
     customerPassword: str
-    customerStatus: bool
+    customerRole: bool
+
+class Customer_PATCH_Body (BaseModel):
+    customerRole: bool
 
 class Customer_response (BaseModel): 
     id: int
     email:str
     create_at: datetime
+    isAdmin: bool
     # We do not include the password when sending the response.
 
     class Config: # Important for the ORM to DTO translation.

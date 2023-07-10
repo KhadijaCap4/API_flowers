@@ -16,4 +16,8 @@ tags_metadata = [
         "name": "Transactions",
         "description": "Create and list customer's transactions",
     },
+    {
+        "name": "Auth",
+        "description": "Authenticate our customers",
+    },
 ]

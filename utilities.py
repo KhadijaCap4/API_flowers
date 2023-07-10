@@ -1,9 +1,13 @@
 from passlib.context import CryptContext
 from jose import jwt, JWTError
-
+from classes.database import get_cursor
+from classes import models_orm, schemas_dto
+from jose import jwt, JWTError
 # Import OAuth2PasswordBearer for authentication
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
+from sqlalchemy import func
+from sqlalchemy.orm import Session
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl='/auth')  # OAuth2PasswordBearer for token authentication
 pwd_context = CryptContext(schemes=["bcrypt"])  # Password hashing context
@@ -40,3 +44,23 @@ def decode_token(given_token: str = Depends(oauth2_scheme)):
             status_code=status.HTTP_401_UNAUTHORIZED
         )
     return decoded_id
+
+def get_customer_by_id(customer_id: int):
+    customer = models_orm.Customers.query.filter(models_orm.Customers.id == customer_id).first()
+    if not customer:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Customer not found with ID: {customer_id}"
+        )
+    return customer
+
+def check_role (payload:int = Depends(decode_token)):
+    customer_id = payload
+    customer =  get_customer_by_id(customer_id)
+    if customer.isAdmin != "true" :
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="JUST for admin"
+        )
+    else:
+        return payload
